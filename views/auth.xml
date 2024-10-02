@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <!-- Template untuk halaman login -->
+        <template id="login_template" name="Custom Login Page">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h2>Login</h2>
+                    <form action="/custom/login/submit" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <label for="login">Username</label>
+                        <input type="text" name="login" id="login" required="required" />
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required="required" />
+                        <button type="submit">Login</button>
+                    </form>
+                    <p>Belum punya akun? <a href="/custom/register">Daftar di sini</a></p>
+                </div>
+            </t>
+        </template>
+
+        <!-- Template untuk halaman register -->
+        <template id="register_template" name="Custom Register Page">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h2>Register</h2>
+                    <form action="/custom/register/submit" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <label for="name">Nama</label>
+                        <input type="text" name="name" id="name" required="required" />
+                        
+                        <label for="login">Username</label>
+                        <input type="text" name="login" id="login" required="required" />
+                        
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required="required" />
+                        
+                        <!-- Field tambahan -->
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" required="required" />
+                        
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" required="required" />
+                        
+                        <button type="submit">Register</button>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+        <!-- Template untuk halaman dashboard dengan iframe Grafana -->
+        <template id="dashboard_template" name="Grafana Dashboard Iframe">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h2>Dashboard</h2>
+                    <a href="/custom/logout">Logout</a>
+                    <iframe src="http://192.168.69.9/d/bdvnb09em4nwgb/dashboard-cctv?orgId=1" width="100%" height="800px"></iframe>
+                </div>
+            </t>
+        </template>
+
+        <!-- Action untuk membuka halaman login -->
+        <record id="action_custom_login" model="ir.actions.act_url">
+            <field name="name">Login</field>
+            <field name="url">/custom/login</field>
+            <field name="target">self</field>
+        </record>
+
+        <!-- Action untuk membuka halaman dashboard -->
+        <record id="action_custom_dashboard" model="ir.actions.act_url">
+            <field name="name">Dashboard</field>
+            <field name="url">/custom/dashboard</field>
+            <field name="target">self</field>
+        </record>
+
+        <!-- Tambahkan Menu Item untuk Login -->
+        <menuitem id="menu_custom_login" name="Login" action="action_custom_login" sequence="10" />
+    </data>
+</odoo>
